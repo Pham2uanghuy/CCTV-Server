@@ -1,28 +1,44 @@
-# cmake_minimum_required(VERSION 3.10)
-# project(rtsp_to_kafka)
-
-# set(CMAKE_CXX_STANDARD 17)
-
-# find_package(OpenCV REQUIRED)
-
-# include_directories(${OpenCV_INCLUDE_DIRS})
-
-# add_executable(rtsp_to_kafka main.cpp)
-
-# target_link_libraries(rtsp_to_kafka
-#     ${OpenCV_LIBS}
-#     rdkafka
-#     rdkafka++
-# )
-
-
 cmake_minimum_required(VERSION 3.10)
-project(camera_viewer)
+project(CCTV_Server)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(OpenCV REQUIRED)
+# Include folder
+include_directories(include)
 
-add_executable(camera_viewer camera_viewer.cpp)
-target_link_libraries(camera_viewer ${OpenCV_LIBS})
+# Find OpenCV
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+# Kafka libs
+find_library(RDKAFKA_LIB rdkafka++)
+find_library(RDKAFKA_C_LIB rdkafka)
+
+# Source files
+set(SOURCES
+    src/main.cpp
+    src/kafka_producer.cpp
+    src/camera_module.cpp
+)
+
+# Main app build
+add_executable(cctv_app ${SOURCES})
+target_link_libraries(cctv_app ${OpenCV_LIBS} ${RDKAFKA_LIB} ${RDKAFKA_C_LIB})
+
+# Test camera
+add_executable(test_camera
+    tests/test_camera.cpp
+    src/camera_module.cpp
+)
+target_link_libraries(test_camera ${OpenCV_LIBS} ${RDKAFKA_LIB} ${RDKAFKA_C_LIB})
+
+# Test producer
+add_executable(test_producer
+    tests/test_producer.cpp
+    src/kafka_producer.cpp
+)
+target_link_libraries(test_producer ${OpenCV_LIBS} ${RDKAFKA_LIB} ${RDKAFKA_C_LIB})
+
+
+
 
