@@ -1,0 +1,20 @@
+[
+    {
+        "id": "cam01",
+        "rtspUrl": "rtsp://192.168.1.10:554/stream1",
+        "username": "admin",
+        "password": "123456"
+    },
+    {
+        "id": "cam02",
+        "rtspUrl": "rtsp://192.168.1.11:554/stream",
+        "username": "viewer",
+        "password": "viewerpass"
+    },
+    {
+        "id": "cam03",
+        "rtspUrl": "rtsp://192.168.1.12:8554/live",
+        "username": "",
+        "password": ""
+    }
+]
