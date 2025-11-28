@@ -14,7 +14,8 @@ bool CameraConfigManager::loadCameraConfig(const std::string &filePath)
     file >> j;
     cameras.clear();
 
-    for (auto &item : j) {
+    for (auto &item : j)
+    {
         CameraConfig cfg;
         cfg.id = item.value("id", "");
         cfg.rtspUrl = item.value("rtspUrl", "");
@@ -26,19 +27,21 @@ bool CameraConfigManager::loadCameraConfig(const std::string &filePath)
     return validateCameraConfig();
 }
 
-
-bool CameraConfigManager::validateCameraConfig() {
-    for (auto &cfg: camera) {
-        if (cfg.id.empty() || cfg.rtsUrl.empty()) return false;
+bool CameraConfigManager::validateCameraConfig()
+{
+    for (auto &cfg : cameras)
+    {
+        if (cfg.id.empty() || cfg.rtspUrl.empty())
+            return false;
     }
     return true;
 }
 
-void CameraConfigManager::reloadCameraList() {
-
+void CameraConfigManager::reloadCameraList()
+{
 }
 
-std::vector<CameraConfigManager::CameraConfig> CameraConfigManager::getCameraList() {
+std::vector<CameraConfigManager::CameraConfig> CameraConfigManager::getCameraList()
+{
     return cameras;
 }
-
